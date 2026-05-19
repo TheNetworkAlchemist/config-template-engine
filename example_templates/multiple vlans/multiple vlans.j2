@@ -1,0 +1,11 @@
+## ASSUME VLANS ARE LISTED IN FOLLOWING FORMAT
+## {vlan_number}:{vlan_name},{vlan_number}:{vlan_name}
+## EXAMPLE: 10:data,20:voice
+!
+{% set vlan_list = vlans.split(',') %}
+{% for vlan in vlan_list %}
+  {% set vlan_items = vlan.split(':') %}
+vlan {{ vlan_items[0] }}
+ name {{ vlan_items [1] }}
+{% endfor %}
+!

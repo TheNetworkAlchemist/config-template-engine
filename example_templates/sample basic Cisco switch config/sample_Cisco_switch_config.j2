@@ -1,0 +1,144 @@
+!
+! Last configuration change at 12:00:00 UTC Mon Jan 1 1990
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname {{ HOSTNAME }}
+clock summer-time {{ timezone }} recurring
+!
+boot-start-marker
+boot-end-marker
+!
+no logging console
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface GigabitEthernet0/1
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/2
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/3
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/4
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/5
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/6
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/7
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/8
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/9
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/10
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/11
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/12
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/13
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/14
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/15
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/16
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/17
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/18
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/19
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/20
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/21
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/22
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/23
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet0/24
+ {{ DEFAULT INT DESCRIPTION }}
+ switchport access vlan {{ DEFAULT VLAN NUMBER }}
+!
+interface GigabitEthernet1/1
+!
+interface GigabitEthernet1/2
+!
+interface GigabitEthernet1/3
+!
+interface GigabitEthernet1/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+interface Vlan{{ management_vlan }}
+ description <== Switch Management Interface ==>
+ ip address {{ management_ip_addr }} {{ management_subnet_mask }}
+
+!
+ip default-gateway {{ default_gateway }}
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+!
+end

@@ -1,0 +1,9 @@
+!
+{% set switch_list = num_of_switches.split(',') %}
+{% for switch in switch_list %}
+interface range gi{{ switch }}/0/1-48
+ description {{ default_port_description }}
+ switchport access vlan {{ data_vlan }}
+ switchport mode access
+{% endfor %}
+!

@@ -1,0 +1,36 @@
+{# CREATE SWITCHPORT CONFIG IN A SWITCH STACK #}
+
+{# CHANGE TYPE TO INTEGER #}
+{%- set switches = total_switches | int -%}
+{%- set ports = access_ports_per_switch | int -%}
+{%- set uplink_ports = uplink_ports_per_switch | int -%}
+
+{# RANGE IS I THROUGH J-1 #}
+{# ADD 1 TO COMPUTE PROPER RANGE #}
+{%- set switches = switches + 1 -%}
+{%- set ports = ports + 1 -%}
+{%- set uplink_ports = uplink_ports + 1 -%}
+
+{# LOOP THROUGH EACH SWITCH IN THE STACK #}
+{# !!! CHANGE STARTING VALUE IF FIXED SWITCH AND NUMBER STARTS AT 0 !!! #}
+{%- for switch in range(1, switches) -%}
+	
+	{# LOOP THROUGH EACH PORT IN THE SWITCH #}
+	{% for port in range(1, ports) %}
+!
+interface GigabitEthernet{{ switch }}/0/{{ port }}
+ description access port with deskphone
+ switchport access vlan {{ data_vlan }}
+ switchport voice vlan {{ voice_vlan }}
+
+	{%- endfor -%}
+	{# LOOP THROUGH EACH UPLINK PORT IN THE SWITCH #}
+	{% for uplink_port in range(1, uplink_ports) %}
+
+!
+interface GigabitEthernet{{ switch }}/1/{{ uplink_port }}
+ description uplink port
+ shutdown
+!
+	{%- endfor -%}
+{%- endfor -%}

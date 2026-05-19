@@ -1,0 +1,11 @@
+﻿hostname,total_switches,access_ports_per_switch,uplink_ports_per_switch,data_vlan,voice_vlan
+test-sw-stack-01,3,24,2,10,20
+test-sw-stack-02,1,48,2,10,20
+test-sw-stack-03,5,48,2,10,20
+test-sw-stack-04,3,12,1,10,20
+test-sw-stack-05,4,24,2,10,20
+test-sw-stack-06,4,48,2,10,20
+test-sw-stack-07,6,48,2,10,20
+test-sw-stack-08,6,48,2,10,20
+test-sw-stack-09,2,24,2,10,20
+test-sw-stack-10,1,12,1,10,20
