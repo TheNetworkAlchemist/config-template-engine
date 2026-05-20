@@ -17,7 +17,7 @@ Behaviour:
        c. Interactive prompt
 
     2. Output:
-       - Rendered files are saved to  ./rendered_template_YYYY-MM-DD/
+       - Rendered files are saved to  ./output_configs/rendered_template_YYYY-MM-DD/
        - If the variables file has a HOSTNAME or hostname column, each row
          is saved as  <hostname>.txt
        - Otherwise files are named  template-01.txt, template-02.txt, …
