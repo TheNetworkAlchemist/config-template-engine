@@ -207,7 +207,7 @@ def get_hostname_column(df: pd.DataFrame) -> Optional[str]:
 def create_output_dir(script_dir: str) -> str:
     """Create and return the output directory path."""
     date_str = datetime.date.today().strftime("%Y-%m-%d")
-    output_dir = os.path.join(script_dir, f"rendered_template_{date_str}")
+    output_dir = os.path.join(script_dir, "output_configs", f"rendered_template_{date_str}")
     os.makedirs(output_dir, exist_ok=True)
     print(f"[INFO] Output directory: {output_dir}")
     return output_dir
