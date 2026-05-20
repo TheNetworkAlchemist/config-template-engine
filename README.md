@@ -171,7 +171,7 @@ python3 render_template.py
 Rendered files are written to a date-stamped folder created alongside the script:
 
 ```
-rendered_template_YYYY-MM-DD/
+./output_configs/rendered_template_YYYY-MM-DD/
 ```
 
 The output filename for each row is determined as follows:
@@ -426,12 +426,10 @@ If a row causes a Jinja2 render error, the generator writes a `# RENDER ERROR` c
 
 Potential enhancements:
 
-- Adjust `variable_builder.py` and `render_template.py` output folder locations
 - Additional error handling
 - Additional internal documentation
 - Additional example files with associated `variables.csv`
 - File Overwrite protection
-- Add capability of `variable_builder.py` to detect any .csv as a default
 - Update examples to remove excessive whitespace in rendered templates
 
 ---
