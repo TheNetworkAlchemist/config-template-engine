@@ -17,7 +17,7 @@ Behaviour:
        c. Interactive prompt
 
     2. Output:
-       - Rendered files are saved to  ./rendered_template_YYYY-MM-DD/
+       - Rendered files are saved to  ./output_configs/rendered_template_YYYY-MM-DD/
        - If the variables file has a HOSTNAME or hostname column, each row
          is saved as  <hostname>.txt
        - Otherwise files are named  template-01.txt, template-02.txt, …
@@ -207,7 +207,7 @@ def get_hostname_column(df: pd.DataFrame) -> Optional[str]:
 def create_output_dir(script_dir: str) -> str:
     """Create and return the output directory path."""
     date_str = datetime.date.today().strftime("%Y-%m-%d")
-    output_dir = os.path.join(script_dir, f"rendered_template_{date_str}")
+    output_dir = os.path.join(script_dir, "output_configs", f"rendered_template_{date_str}")
     os.makedirs(output_dir, exist_ok=True)
     print(f"[INFO] Output directory: {output_dir}")
     return output_dir

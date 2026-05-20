@@ -4,10 +4,16 @@
 Generate a CSV template from variables found in a Jinja2 template.
 
 Features:
-- Accepts a .j2 or .jinja2 template file as a command-line argument
-- Interactive prompt if no argument is supplied
+- Accepts a .j2, .jinja2, .jinja, or .tmpl template file as a CLI argument
+- Auto-detects the first matching template in the current directory if none supplied
+- Interactive prompt fallback if no template is found automatically
 - Basic validation and error handling
 - Automatically creates output directory if needed
+
+Resolution order (mirrors jinja2_template_generator.py):
+  1. CLI argument
+  2. Auto-detect first .j2 / .jinja2 / .jinja / .tmpl in the current directory
+  3. Interactive prompt
 
 Example:
     python variable_builder.py ./templates/example.j2
@@ -16,16 +22,33 @@ Example:
 # Standard library imports
 import argparse
 import csv
+import glob
 import os
 import re
 import sys
 
+# Template extensions to scan for, in priority order
+TEMPLATE_EXTENSIONS = ("*.j2", "*.jinja2", "*.jinja", "*.tmpl")
+
+
+def find_template_in_dir(directory: str):
+    """
+    Scan *directory* for a template file, checking each extension
+    in TEMPLATE_EXTENSIONS order. Returns the first match or None.
+    """
+    for pattern in TEMPLATE_EXTENSIONS:
+        matches = glob.glob(os.path.join(directory, pattern))
+        if matches:
+            return matches[0]
+    return None
+
 
 def get_template_path():
     """
-    Retrieve template path from CLI arguments,
-    fallback to template.j2 in current directory,
-    or interactive prompt.
+    Resolve the template file using a three-step priority:
+      1. CLI argument
+      2. Auto-detect first .j2 / .jinja2 / .jinja / .tmpl in the current directory
+      3. Interactive prompt
     """
 
     parser = argparse.ArgumentParser(
@@ -35,32 +58,43 @@ def get_template_path():
     parser.add_argument(
         "template",
         nargs="?",
-        help="Path to a .j2 or .jinja2 template file"
+        help="Path to a .j2, .jinja2, .jinja, or .tmpl template file"
     )
 
     args = parser.parse_args()
 
-    # If CLI argument supplied, use it
+    # 1. CLI argument
     if args.template:
         return args.template
 
-    # Attempt automatic default template
-    default_template = "template.j2"
+    # 2. Auto-detect in current directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    found = find_template_in_dir(script_dir)
 
-    if os.path.isfile(default_template):
-        print(
-            f"\nNo template argument supplied. "
-            f"Using default template: {default_template}"
-        )
-        return default_template
+    if found:
+        print(f"\n[INFO] Auto-detected template file: {found}")
+                                                
+                                                         
+         
+        return found
 
-    # Fall back to interactive prompt
-    print("\nNo template file provided.")
-    template_path = input(
-        "Enter path to Jinja2 template (.j2/.jinja2): "
-    ).strip()
+    # 3. Interactive prompt
+    print("\n[INFO] No template file found automatically.")
+    while True:
+        template_path = input(
+            "Enter path to Jinja2 template (.j2/.jinja2/.jinja/.tmpl): "
+        ).strip()
 
-    return template_path
+        if not template_path:
+            print("ERROR: Path cannot be empty. Please try again.")
+            continue
+
+        template_path = os.path.expanduser(template_path)
+
+        if os.path.isfile(template_path):
+            return template_path
+
+        print(f"ERROR: File not found: {template_path}. Please try again.")
 
 
 def validate_template(template_path):
@@ -76,10 +110,10 @@ def validate_template(template_path):
         print(f"ERROR: File does not exist: {template_path}")
         sys.exit(1)
 
-    valid_extensions = (".j2", ".jinja2")
+    valid_extensions = (".j2", ".jinja2", ".jinja", ".tmpl")
 
     if not template_path.endswith(valid_extensions):
-        print("ERROR: Template file must end in .j2 or .jinja2")
+        print("ERROR: Template file must end in .j2, .jinja2, .jinja, or .tmpl")
         sys.exit(1)
 
 
