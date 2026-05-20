@@ -377,7 +377,7 @@ hostname missing
 
 ```
 jinja2-template-toolkit/
-└── README.md                      # This file
+├── README.md                      # This file
 ├── requirements.txt               # Python dependencies
 ├── variable_builder.py            # Step 1 — scaffold your variables CSV
 ├── render_template.py             # Step 2 — render templates from your CSV
@@ -432,6 +432,7 @@ Potential enhancements:
 - Additional example files with associated `variables.csv`
 - File Overwrite protection
 - Add capability of `variable_builder.py` to detect any .csv as a default
+- Update examples to remove excessive whitespace in rendered templates
 
 ---
 
